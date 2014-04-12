@@ -16,8 +16,12 @@ class tax_widget extends WP_Widget {
   public function widget($args, $instance) {
     global $post;
     $title = apply_filters('widget_title', $instance['title']);
-    $post_terms = wp_get_object_terms($post->ID, $instance['taxonomy'],
+    if (is_archive()) {
+      $post_terms = get_terms($instance['taxonomy']);
+    } else {
+      $post_terms = wp_get_object_terms($post->ID, $instance['taxonomy'],
                                       array('fields' => 'all_with_object_id'));
+    }
 
     echo $args['before_widget'];
     if (!empty($title)) {
