@@ -4,6 +4,12 @@ Plugin Name: Taxonomy List
 Description: Show taxonomies for current post, in a widget
 */
 
+function init_taxwidget_plugin () {
+  load_plugin_textdomain('taxwidget', false, basename(dirname(__file__)));
+}
+
+add_action('init', 'init_taxwidget_plugin');
+
 class tax_widget extends WP_Widget {
   function __construct() {
     parent::__construct(
@@ -60,12 +66,12 @@ class tax_widget extends WP_Widget {
     }
 ?>
     <p>
-      <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:') ?></label>
+      <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'taxwidget') ?></label>
       <input class="widefat" type="text"
         id="<?php echo $this->get_field_id('title');?>"
         name="<?php echo $this->get_field_name('title');?>"
         value="<?php echo esc_attr($title); ?>"></input>
-      <label for="<?php echo $this->get_field_id('description'); ?>"><?php _e('Description:') ?></label>
+      <label for="<?php echo $this->get_field_id('description'); ?>"><?php _e('Description:', 'taxwidget') ?></label>
       <textarea class="widefat"
         id="<?php echo $this->get_field_id('description'); ?>"
         name="<?php echo $this->get_field_name('description'); ?>"
